@@ -1,4 +1,4 @@
-export const BASE = "http://localhost:3000";
+export const BASE = "https://mero-pasal.onrender.com";
 
 export const gh = {
   bg: "#0d1117",
