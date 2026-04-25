@@ -3,3 +3,6 @@ node_modules/
 
 # environment variables
 .env
+
+# built frontend files
+dist/
