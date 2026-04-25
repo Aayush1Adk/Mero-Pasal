@@ -10,6 +10,12 @@ const app = express()
 app.use(express.json());
 app.use(cors()); 
 
+app.use(cors({
+    origin: "https://mero-pasal-gamma.vercel.app", // Your Vercel URL
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    credentials: true
+}));
+
 // Root route
 app.get('/', (req, res) => {
   res.json({ message: 'Mero Pasal API is running', status: 'success' });
