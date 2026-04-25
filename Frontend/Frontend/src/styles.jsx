@@ -1,4 +1,4 @@
-export const BASE = "https://mero-pasal.onrender.com";
+export const BASE = "https://mero-pasal.onrender.com/";
 
 export const gh = {
   bg: "#0d1117",
