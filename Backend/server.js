@@ -1,5 +1,5 @@
-const app = require("./Backend/src/app.js");
-const ConnectDB = require("./Backend/src/db/db.js")
+const app = require("./src/app.js");
+const ConnectDB = require("./src/db/db.js")
 
 ConnectDB();
 
