@@ -3,7 +3,19 @@ import { gh, mkBtn } from "../styles";
 export default function Feed({ products, setTab, viewDetail }) {
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+      <style>{`
+        @media (max-width: 600px) {
+          .feed-header {
+            flex-direction: column !important;
+            gap: 12px !important;
+            align-items: flex-start !important;
+          }
+          .feed-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }} className="feed-header">
         <h1 style={{ fontSize: "18px", fontWeight: 600 }}>Product Feed</h1>
         <button style={mkBtn("primary")} onClick={() => setTab("admin")}>+ Add Product</button>
       </div>
@@ -15,7 +27,7 @@ export default function Feed({ products, setTab, viewDetail }) {
           <p style={{ fontSize: "13px" }}>Add your first product from the Admin panel.</p>
         </div>
       ) : (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "12px" }}>
+        <div className="feed-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "12px" }}>
           {products.map(p => (
             <div key={p._id} className="pcard" onClick={() => viewDetail(p._id)}
               style={{ background: gh.surface, border: `1px solid ${gh.border}`, borderRadius: "6px", cursor: "pointer", overflow: "hidden" }}>

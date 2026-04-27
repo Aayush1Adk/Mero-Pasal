@@ -82,10 +82,40 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: "16px", alignItems: "start" }}>
+    <>
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .admin-category-panel {
+            position: static !important;
+            margin-bottom: 12px;
+          }
+          .admin-form-row {
+            flex-direction: column !important;
+          }
+          .admin-form-row > div {
+            width: 100% !important;
+          }
+          .admin-cat-list {
+            max-height: 200px !important;
+          }
+          .admin-cat-item {
+            flex-wrap: wrap !important;
+          }
+          .admin-cat-edit {
+            flex-direction: column !important;
+          }
+          .admin-cat-edit input {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+      <div className="admin-grid" style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: "16px", alignItems: "start" }}>
       
       {/* ── Category Panel ── */}
-      <div style={{ background: gh.surface, border: `1px solid ${gh.border}`, borderRadius: "6px", position: "sticky", top: "72px" }}>
+      <div className="admin-category-panel" style={{ background: gh.surface, border: `1px solid ${gh.border}`, borderRadius: "6px", position: "sticky", top: "72px" }}>
         <div style={{ padding: "12px 16px", borderBottom: `1px solid ${gh.border}`, fontSize: "13px", fontWeight: 600, color: gh.text }}>
           Categories
         </div>
@@ -101,18 +131,18 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
             Existing ({categories.length})
           </div>
           
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px", maxHeight: "300px", overflowY: "auto", paddingRight: "4px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "4px", maxHeight: "300px", overflowY: "auto", paddingRight: "4px" }} className="admin-cat-list">
             {categories.length === 0 ? (
               <div style={{ fontSize: "12px", color: gh.muted, fontStyle: "italic", padding: "8px 0" }}>No categories yet</div>
             ) : categories.map(cat => (
-              <div key={cat._id} style={{
+              <div key={cat._id} className="admin-cat-item" style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
                 padding: "8px 10px", background: gh.surface2, borderRadius: "6px",
                 border: `1px solid ${gh.borderMuted}`, fontSize: "13px", minHeight: "36px"
               }}>
                 {editingCatId === cat._id ? (
                   // Edit Mode
-                  <div style={{ display: "flex", gap: "6px", width: "100%" }}>
+                  <div className="admin-cat-edit" style={{ display: "flex", gap: "6px", width: "100%" }}>
                     <input 
                       style={{ ...inp, padding: "2px 6px", fontSize: "12px" }} 
                       value={editCatTitle} 
@@ -153,7 +183,7 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
           Add New Product
         </div>
         <div style={{ padding: "20px" }}>
-          <div style={row}>
+          <div className="admin-form-row" style={row}>
             <div style={col}>
               <label style={lbl}>Title *</label>
               <input style={inp} placeholder="Product name" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} />
@@ -166,7 +196,7 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
               </select>
             </div>
           </div>
-          <div style={row}>
+          <div className="admin-form-row" style={row}>
             <div style={col}>
               <label style={lbl}>Market Price (MP) *</label>
               <input style={inp} type="number" placeholder="800" value={form.MP} onChange={e => setForm({ ...form, MP: e.target.value })} />
@@ -176,7 +206,7 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
               <input style={inp} type="number" placeholder="750" value={form.SP} onChange={e => setForm({ ...form, SP: e.target.value })} />
             </div>
           </div>
-          <div style={row}>
+          <div className="admin-form-row" style={row}>
             <div style={col}>
               <label style={lbl}>Discount (%)</label>
               <input style={inp} type="number" placeholder="0" value={form.Discount} onChange={e => setForm({ ...form, Discount: e.target.value })} />
@@ -215,5 +245,6 @@ export default function Admin({ categories, fetchAll, showToast, form, setForm, 
         </div>
       </div>
     </div>
+    </>
   );
 }

@@ -67,12 +67,34 @@ export default function Modal({ product, setProduct, categories, fetchAll, showT
   };
 
   return (
-    <div style={{
+    <div className="modal-wrapper">
+      <style>{`
+        @media (max-width: 600px) {
+          .modal-wrapper .modal-overlay {
+            padding: 80px 12px 24px !important;
+          }
+          .modal-wrapper .modal-content {
+            max-width: 100% !important;
+          }
+          .modal-wrapper .modal-header {
+            flex-direction: column !important;
+            gap: 12px !important;
+            align-items: flex-start !important;
+          }
+          .modal-wrapper .modal-actions {
+            flex-wrap: wrap !important;
+          }
+          .modal-wrapper .modal-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
+    <div className="modal-overlay" style={{
       position: "fixed", inset: 0, background: "rgba(1,4,9,0.8)",
       display: "flex", alignItems: "flex-start", justifyContent: "center",
       zIndex: 100, padding: "48px 16px 24px", overflowY: "auto",
     }} onClick={() => setProduct(null)}>
-      <div onClick={e => e.stopPropagation()} style={{
+      <div className="modal-content" onClick={e => e.stopPropagation()} style={{
         background: gh.surface, border: `1px solid ${gh.border}`,
         borderRadius: "12px", width: "100%", maxWidth: "580px", overflow: "hidden",
         boxShadow: "0 16px 64px rgba(0,0,0,0.7)",
@@ -87,21 +109,21 @@ export default function Modal({ product, setProduct, categories, fetchAll, showT
         <div style={{ padding: "20px" }}>
           {!editMode ? (
             <>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
+              <div className="modal-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "16px" }}>
                 <div>
                   <h2 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "6px" }}>{product.title}</h2>
                   <span style={{ fontSize: "12px", color: gh.muted, background: gh.surface2, padding: "2px 10px", borderRadius: "12px", border: `1px solid ${gh.border}` }}>
                     {product.catagory?.title}
                   </span>
                 </div>
-                <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
+                <div className="modal-actions" style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
                   <button style={mkBtn("blue")} onClick={startEdit}>Edit</button>
                   <button style={mkBtn("danger")} onClick={() => deleteProduct(product._id)}>Delete</button>
                   <button style={mkBtn()} onClick={() => setProduct(null)}>Close</button>
                 </div>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "16px" }}>
+              <div className="modal-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "16px" }}>
                 {[
                   ["Market Price", `Rs. ${product.MP}`, gh.text],
                   ["Selling Price", `Rs. ${product.SP}`, gh.accent],
@@ -187,6 +209,7 @@ export default function Modal({ product, setProduct, categories, fetchAll, showT
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 }
